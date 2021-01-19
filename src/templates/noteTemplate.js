@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Layout from "../components/layout";
 import NoteItem from "../components/NoteItem";
+import {FirebaseContext} from '../components/Firebase'
 import {graphql} from 'gatsby';
+import {NoteComments} from '../components/common';
 
 //noteCover={props.pageContext.imageUrl} //old but gold
 /*
@@ -12,7 +14,8 @@ old but gold
         noteTitle={props.pageContext.title} />
 */
 const NoteTemplate = (props) =>{
-    console.log(props.data);
+    //console.log(props.data);
+    const {firebase} = useContext(FirebaseContext)
     return(
         <section>
         <NoteItem 
@@ -20,6 +23,9 @@ const NoteTemplate = (props) =>{
         authorName={props.data.note.author.name}
         noteSummary={props.data.note.sammary}
         noteTitle={props.data.note.title} />
+        {!!firebase && 
+        <NoteComments firebase={firebase} noteId={props.data.note.id}/>
+        }
         </section>
     )
 };

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
+background: #fde8cd;
 display: block;
 width: 100%;
 padding:8px;
@@ -11,6 +12,7 @@ border: 1px solid #ddd;
 box-shadow: none;
 
 &:focus, &:active{
-    border: 1px solid rebeccapurple;
+    /* border: 1px solid rebeccapurple; */
+    border: 1px solid #433520;
 }
 `;

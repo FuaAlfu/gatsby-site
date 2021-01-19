@@ -26,7 +26,8 @@ cursor:pointer;
 `;
 
 const HeaderWrapper = styled.header`
-      background: rebeccapurple;
+      /* background: rebeccapurple; */
+      background: #000;
       margin-bottom: 1.45rem;
 `;
 
@@ -91,7 +92,7 @@ const Header = ({ siteTitle }) => {
       <div>
         {!!user && !!user.email &&
         <UserInfo>
-        hello, {user.email}
+        hello, {user.username || user.email}
         <div>
           <LogoutLink onClick={handleLogoutClick}>
           logout</LogoutLink>

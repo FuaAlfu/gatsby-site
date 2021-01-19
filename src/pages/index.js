@@ -12,13 +12,17 @@ text-align: right;
 
 a{
   padding:8px;
-  background:rebeccapurple;
-  color:white;
+  /* margin-bottom: 16px; */
+  /* background:rebeccapurple; */
+  background: #fde8cd;
+  color:#000;
+
   border-radius:8px;
   text-decoration:none;
 
   &:hover{
-    background:indigo;
+    /* background:indigo; */
+    background:#ffcda3;
   }
 }
 `;

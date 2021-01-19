@@ -13,8 +13,20 @@ class Firebase {
     }
   }
 
-  async register({email,password}){
-    return this.auth.createUserWithEmailAndPassword(email,password);
+  async getUserProfile({userId}){
+    return this.db.collection('publicProfiles').where('userId', '==', userId).get(); //where() func allows us to look fo, filtering or checking
+  }
+
+  async register({email,password, username}){
+    const newUser = await this.auth.createUserWithEmailAndPassword(email,password);
+    return this.db.collection('publicProfiles').doc(username).set({
+      userId: newUser.user.uid
+    })
+  }
+
+   subscribeToNoteComments({noteId,onSnapshot}){
+    const noteRef = this.db.collection('notes').doc(noteId);
+    return this.db.collection('comments').where('note','==',noteRef).onSnapshot(onSnapshot) //any time update will run this func
   }
 
   async login({email, password}) {

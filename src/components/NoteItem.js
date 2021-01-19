@@ -8,15 +8,18 @@ const NoteItemWrapper = styled.section`
      font-family: 'Playfair Display', 'Imbue', 'Reem Kufi', sans-serif, serif;
 }
 border: 1px solid #ddd;
-background: #fff;
+background: #252525;
+color: #9ba2a8;
 padding:8px;
 margin-bottom: 8px;
 display:flex;
+
 h2{
+    color: white;
     small{
         font-weight: normal;
         font-size:15px;
-        padding-ledt: 8px;
+        padding-left: 8px;
     }
 }
 `;
