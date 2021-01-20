@@ -19,7 +19,7 @@ a{
 
   border-radius:8px;
   text-decoration:none;
-
+  transition: all 0.5s ease;
   &:hover{
     /* background:indigo; */
     background:#ffcda3;
