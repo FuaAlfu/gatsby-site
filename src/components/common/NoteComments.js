@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react'
 import styled from 'styled-components';
 import {Button} from './Button';
 import {Input} from './Input';
+import moment from 'moment';
 
 const CommentForm = styled.form`
 display: flex;
@@ -32,6 +33,7 @@ padding: 4px 0;
 
 export const NoteComments = ({firebase,noteId}) => {
     const [comments,setComments] = useState([]);
+    const [commentText, setCommentText] = useState('');
 
    const unsubscribe = useEffect(() =>{
         firebase.subscribeToNoteComments({
@@ -58,18 +60,29 @@ export const NoteComments = ({firebase,noteId}) => {
     },[])
 
   //  console.log(comments); //for checking
+  function handlePostCommentSubmit(e){
+      e.preventDefault();
+      //console.log(commentText); //testo-no-tame
+      firebase.postComment({
+          text: commentText,
+          noteId
+      })
+  }
         return (
             <div>
-            <CommentForm>
-            <Input />
-            <Button>
+            <CommentForm onSubmit={handlePostCommentSubmit}>
+            <Input value={commentText} onChange={e => {
+                e.persist();
+                setCommentText(e.target.value); //async
+            }}/>
+            <Button type="submit">
             Post comment
             </Button>
             </CommentForm>
                {comments.map(comment => (
                    <CommentListItem key={comment.id}>
                    <strong>
-                       {comment.username}
+                       {comment.username} - {moment(comment.dateCreated.toDate()).format('HH:mm Do MMM YYYY')} {/*'hh:mm DD MMM YYYY ||hh to show 12 hour*/}
                        </strong>
                        <div>
                            {comment.text}

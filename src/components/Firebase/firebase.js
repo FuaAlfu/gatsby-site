@@ -24,9 +24,20 @@ class Firebase {
     })
   }
 
+  async postComment({text,noteId}){
+    const postCommentCallable = this.functions.httpsCallable('postComment') //ref to firebase func
+    return postCommentCallable({
+      text,
+      noteId
+    });
+  }
+
    subscribeToNoteComments({noteId,onSnapshot}){
     const noteRef = this.db.collection('notes').doc(noteId);
-    return this.db.collection('comments').where('note','==',noteRef).onSnapshot(onSnapshot) //any time update will run this func
+    return this.db.collection('comments')
+    .where('note','==',noteRef)
+    .orderBy('dateCreated','desc') //descending
+    .onSnapshot(onSnapshot) //any time update will run this func
   }
 
   async login({email, password}) {
