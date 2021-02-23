@@ -17,15 +17,51 @@ function useAuth() {
 
             unsubscribe = firebaseInstance.auth.onAuthStateChanged(userResult => {
                 if (userResult) {
-                    firebaseInstance.getUserProfile({
-                        userId: userResult.uid
-                    }).then(r => {
+                    publicProfileUnsubscribe = firebaseInstance.getUserProfile({
+                        userId: userResult.uid,
+                        onSnapshot: r => {
+                            // console.log(r)
+                             setUser({
+                                 ...userResult,
+                                 username: r.empty ? null : r.docs[0].id
+                             });
+                      }
+                    })
+                }else{
+                    setUser(null);
+                }
+
+                setLoading(false);
+            })
+        })
+
+        return () => {
+            if (unsubscribe) {
+                unsubscribe()
+            }
+
+            if (publicProfileUnsubscribe) {
+                publicProfileUnsubscribe()
+            }
+        }
+    }, [])
+
+    return { user, firebase, loading }
+}
+
+export default useAuth
+
+      
+                    /*old
+                    .then(r => {
                        // console.log(r)
                         setUser({
                             ...userResult,
                             username: r.empty ? null : r.docs[0].id
                         });
                     })
+                    */
+                   
                    
                     // get user custom claims
                     /*setLoading(true);
@@ -65,26 +101,3 @@ function useAuth() {
                             setLoading(false)
                         }
                     })*/
-                }else{
-                    setUser(null);
-                }
-
-                setLoading(false);
-            })
-        })
-
-        return () => {
-            if (unsubscribe) {
-                unsubscribe()
-            }
-
-            if (publicProfileUnsubscribe) {
-                publicProfileUnsubscribe()
-            }
-        }
-    }, [])
-
-    return { user, firebase, loading }
-}
-
-export default useAuth

@@ -13,8 +13,15 @@ class Firebase {
     }
   }
 
-  async getUserProfile({userId}){
+   getUserProfile({userId,onSnapshot}){
+    return this.db.collection('publicProfiles')
+    .where('userId','==',userId)
+    .limit(1)
+    .onSnapshot(onSnapshot) //any time update will run this func
+
+    /* no more need
     return this.db.collection('publicProfiles').where('userId', '==', userId).get(); //where() func allows us to look fo, filtering or checking
+    */
   }
 
   async register({email,password, username}){
