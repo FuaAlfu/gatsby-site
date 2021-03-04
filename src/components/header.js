@@ -71,10 +71,17 @@ padding-right: 1px;
 background: #ddd; 
 `;
 
+const AdminLink = styled.span`
+a{
+  color: #fff;
+}
+
+`;
+
 const Header = ({ siteTitle }) => {
   //using hooks
   const {firebase,user} = useContext(FirebaseContext);
-  console.log(firebase,user);
+  console.log(user);
 
   function handleLogoutClick(){
     //because its promise we can add then.. ::with then we will be able to navigate back to login page
@@ -94,6 +101,22 @@ const Header = ({ siteTitle }) => {
         <UserInfo>
         hello, {user.username || user.email}
         <div>
+        {!!user.isAdmin &&
+       <>
+       <AdminLink>
+          <Link to="/add-author">
+         Add Author
+         </Link>
+         </AdminLink>
+         <Divider />
+         <AdminLink>
+         <Link to="/add-note">
+         Add Note
+         </Link>
+         </AdminLink>
+         <Divider />
+        </>
+        }
           <LogoutLink onClick={handleLogoutClick}>
           logout</LogoutLink>
         </div>
