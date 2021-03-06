@@ -24,6 +24,13 @@ class Firebase {
     */
   }
 
+  async createAuthor({authorName}){
+    const createAuthorCallable = this.functions.httpsCallable('createAuthor');
+    return createAuthorCallable({
+      authorName
+    })
+  }
+
   async register({email,password, username}){
     
     /*old...
