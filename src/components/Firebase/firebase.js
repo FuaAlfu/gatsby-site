@@ -31,6 +31,10 @@ class Firebase {
     })
   }
 
+  async getAuthors(){
+    return this.db.collection('authors').get(); 
+  }
+
   async register({email,password, username}){
     
     /*old...
