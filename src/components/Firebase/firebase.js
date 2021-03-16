@@ -35,6 +35,15 @@ class Firebase {
     return this.db.collection('authors').get(); 
   }
 
+  async createNote({noteName,authorId,noteCover}){
+    const creatNoteCallable = this.functions.httpsCallable('createNote');
+    return creatNoteCallable({
+      noteName,
+      authorId,
+      noteCover
+    })
+  }
+
   async register({email,password, username}){
     
     /*old...
