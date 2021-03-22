@@ -37,6 +37,9 @@ const AddNote = () => {
             })
         } )
 
+        //insure that once we loaded in the availabe authors will be selected in our state
+        setAuthorId(availabeAuthors[0].id);
+
         setAuthors(availabeAuthors);
         })
       }
