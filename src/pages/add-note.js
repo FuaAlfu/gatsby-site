@@ -54,6 +54,11 @@ const AddNote = () => {
        console.log(noteCover);
        console.log(authorId);
        console.log(noteName);
+       firebase.createNote({
+          noteCover,
+          noteName,
+          authorId
+       })
     }}>
     <FormField>
      <Input placeholder="note name" value={noteName} onChange={e => {
